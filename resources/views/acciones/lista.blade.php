@@ -4,19 +4,46 @@
 
 @section('content')
     <h1 class="mt-4">Acciones Correctivas</h1>
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-        <li class="breadcrumb-item active">Acciones Correctivas</li>
-    </ol>
+    <div class="d-flex flex-row justify-content-between">
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Acciones Correctivas</li>
+        </ol>
+        <a class="btn btn-success mb-4" href="{{ route('nueva-accion') }}" >Nuevo</a>
+    </div>
     <div class="card mb-4">
         <div class="card-body">
-            <p class="mb-0">
-                This page is an example of using static navigation. By removing the
-                <code>.sb-nav-fixed</code>
-                class from the
-                <code>body</code>
-                , the top navigation and side navigation will become static on scroll. Scroll down this page to see an example.
-            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Reporte</th>
+                        <th>Tipo de Acción</th>
+                        <th>Detalle</th>
+                        <th>Responsable</th>
+                        <th>Fecha Programada</th>
+                        <th colspan="2">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($acciones as $accion)
+                        <tr>
+                            <td>{{ $accion->incidente->descripcion }}</td>
+                            <td>{{ $accion->tipo_accion }}</td>
+                            <td>{{ $accion->detalle }}</td>
+                            <td>{{ $accion->responsable }}</td>
+                            <td>{{ $accion->fecha_programada->format('d/m/Y') }}</td>
+                            <td><a class="btn btn-warning mb-4" href="{{ route('editar-accion', ['id' => $accion->id]) }}" ><i class="fa-solid fa-pen-to-square"></i></a></td>
+                            <td>
+                                <form action="{{ route('delete-accion', ['id' => $accion->id]) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger mb-4" type="submit"><i class="fa-solid fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>    
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
     <div style="height: 100vh"></div>
