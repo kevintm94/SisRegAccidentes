@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Incidente extends Model
 {
     use HasFactory;
-    protected $table = 'control_riesgos';
+    protected $table = 'reportes_incidentes';
 
     protected $fillable = [
         'sensor_id',
