@@ -33,13 +33,13 @@
                             <td>{{ $accion->responsable }}</td>
                             <td>{{ $accion->fecha_programada->format('d/m/Y') }}</td>
                             <td><a class="btn btn-warning mb-4" href="{{ route('editar-accion', ['id' => $accion->id]) }}" ><i class="fa-solid fa-pen-to-square"></i></a></td>
-                            <td>
+                            <!--td>
                                 <form action="{{ route('delete-accion', ['id' => $accion->id]) }}" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger mb-4" type="submit"><i class="fa-solid fa-trash"></i></button>
                                 </form>
-                            </td>
+                            </td-->
                         </tr>    
                     @endforeach
                 </tbody>
