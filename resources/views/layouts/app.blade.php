@@ -55,6 +55,14 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-file"></i></div>
                                 Incidentes
                             </a>
+                            <a class="nav-link" href="{{ route('capacitaciones') }}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                                Capacitaciones
+                            </a>
+                            <a class="nav-link" href="{{ route('acciones') }}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-people-group"></i></div>
+                                Acciones Correctivas
+                            </a>
                             <!--a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Layouts
