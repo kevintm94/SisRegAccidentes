@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Incidente;
+use App\Models\Sensor;
+use App\Models\Trabajador;
+use App\Models\Riesgo;
+use App\Models\Obra;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class IncidenteController extends Controller
 {
@@ -21,7 +27,11 @@ class IncidenteController extends Controller
      */
     public function create()
     {
-        //
+        $sensores = Sensor::all();
+        $trabajadores = Trabajador::all();
+        $riesgos = Riesgo::all();
+        $obras = Obra::all();
+        return view('incidentes.nuevo', ['sensores' => $sensores, 'trabajadores' => $trabajadores, 'riesgos' => $riesgos, 'obras' => $obras]);
     }
 
     /**
@@ -29,7 +39,8 @@ class IncidenteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $incidente = Incidente::create($request->all());
+        return redirect('/incidentes');
     }
 
     /**
@@ -43,9 +54,14 @@ class IncidenteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(int $id)
     {
-        //
+        $sensores = Sensor::all();
+        $trabajadores = Trabajador::all();
+        $riesgos = Riesgo::all();
+        $obras = Obra::all();
+        $incidente = Incidente::find($id);
+        return view('incidentes.editar', ['sensores' => $sensores, 'trabajadores' => $trabajadores, 'riesgos' => $riesgos, 'obras' => $obras, 'incidente' => $incidente]);
     }
 
     /**
@@ -53,7 +69,11 @@ class IncidenteController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $incidente = Incidente::find($id);
+        $data = $request->all();
+        $data['fecha_reporte'] = Carbon::createFromFormat('d/m/Y', $data['fecha_reporte'])->toDateString();
+        $incidente->update($data);
+        return redirect('/incidentes');
     }
 
     /**
@@ -61,6 +81,8 @@ class IncidenteController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $incidente = Incidente::find($id);
+        $incidente->delete();
+        return redirect('/incidentes');
     }
 }
