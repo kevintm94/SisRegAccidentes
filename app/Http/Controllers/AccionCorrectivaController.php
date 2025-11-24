@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccionCorrectiva;
+use App\Models\Incidente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class AccionCorrectivaController extends Controller
 {
@@ -11,7 +14,8 @@ class AccionCorrectivaController extends Controller
      */
     public function index()
     {
-        return view('acciones.lista');
+        $acciones = AccionCorrectiva::all();
+        return view('acciones.lista', ['acciones' => $acciones]);
     }
 
     /**
@@ -19,7 +23,8 @@ class AccionCorrectivaController extends Controller
      */
     public function create()
     {
-        //
+        $incidentes = Incidente::all();
+        return view('acciones.nuevo', ['incidentes' => $incidentes]);
     }
 
     /**
@@ -27,7 +32,8 @@ class AccionCorrectivaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $accion = AccionCorrectiva::create($request->all());
+        return redirect('/acciones');
     }
 
     /**
@@ -43,7 +49,9 @@ class AccionCorrectivaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $accion = AccionCorrectiva::find($id);
+        $incidentes = Incidente::all();
+        return view('acciones.editar', ['incidentes' => $incidentes, 'accion' => $accion]);
     }
 
     /**
@@ -51,7 +59,11 @@ class AccionCorrectivaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $accion = AccionCorrectiva::find($id);
+        $data = $request->all();
+        $data['fecha_programada'] = Carbon::createFromFormat('d/m/Y', $data['fecha_programada'])->toDateString();
+        $accion->update($data);
+        return redirect('/acciones');
     }
 
     /**
@@ -59,6 +71,8 @@ class AccionCorrectivaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $accion = AccionCorrectiva::find($id);
+        $accion->delete();
+        return redirect('/acciones');
     }
 }

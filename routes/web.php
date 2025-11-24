@@ -25,5 +25,10 @@ Route::put('/incidentes/{id}', [IncidenteController::class, 'update'])->middlewa
 Route::delete('/incidentes/{id}', [IncidenteController::class, 'destroy'])->middleware('auth')->name('delete-incidente');
 
 Route::get('/acciones', [AccionCorrectivaController::class, 'index'])->middleware('auth')->name('acciones');
+Route::get('/acciones/nuevo', [AccionCorrectivaController::class, 'create'])->middleware('auth')->name('nueva-accion');
+Route::get('/acciones/edit/{id}', [AccionCorrectivaController::class, 'edit'])->middleware('auth')->name('editar-accion');
+Route::post('/acciones', [AccionCorrectivaController::class, 'store'])->middleware('auth');
+Route::put('/acciones/{id}', [AccionCorrectivaController::class, 'update'])->middleware('auth')->name('update-accion');
+Route::delete('/acciones/{id}', [AccionCorrectivaController::class, 'destroy'])->middleware('auth')->name('delete-accion');
 
 Route::get('/capacitaciones', [CapacitacionController::class, 'index'])->middleware('auth')->name('capacitaciones');
